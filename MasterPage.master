@@ -1,0 +1,2352 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>WWICS: Branch Module</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link id="favicon" rel="icon" type="image/png" href="images/zax_favicon.png" />
+     <script type="text/javascript" src="lib/jquery-1.10.1.min.js"></script>
+        <!-- Add mousewheel plugin (this is optional) -->
+        <link rel="stylesheet" type="text/css" href="css_chklst/font-awesome.css" />
+        <link rel="stylesheet" type="text/css" href="source/jquery.fancybox.css?v=2.1.5"
+            media="screen" />
+        <!-- Add Button helper (this is optional) -->
+        <link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+     
+        <!-- Add Thumbnail helper (this is optional) -->
+<link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />       
+<asp:ContentPlaceHolder ID="head" runat="server">
+</asp:ContentPlaceHolder>
+
+ <style type="text/css">
+ .sidebar {
+ 
+  transition: 0.5s;
+  width: 0;
+ }
+.openbtn
+{
+font-size: 16px;
+color: #fff;
+cursor:pointer;
+ 
+}
+.openbtn:hover
+{
+
+color: #fff;
+ 
+}
+.closebtn:hover
+{
+
+color: #fff;
+  
+}
+.closebtn
+{
+font-size: 16px;
+color: #fff;
+margin: 0px 0 0 2px;
+  display:none;
+}
+.leftNavBgShad {
+    
+    position: relative !important;
+
+}
+.containor.www-left
+{
+    display:flex !important;
+	 height: 85vh !important;
+}
+#AccordionPane1_header {
+
+    padding: 0 0 24px 0;
+    margin: 0 0 0px 0;
+
+}
+.leftTabTitleText {
+
+width: auto !important;
+float: none !important;
+padding: 0 0 0 25px !important;
+
+}
+#ContentPlaceHolder1_RadTabStrip1 {
+z-index:1 !important;
+}
+#whole_width {
+  transition: margin-left .5s;
+
+}
+.btnleftt1 {
+    width: 14px;
+    height: 22px;
+    position: absolute;
+    right: -13px;
+    background-color: #d9261c;
+    padding: 3px 5px 0;
+}
+</style>
+<style type="text/css">
+        .accordion
+        {
+            width: 100%;
+        }
+        /* .accordionHeader
+        {
+            border: 1px solid #2F4F4F;
+            color: white;
+            background-color: #2E4d7B;
+            font-family: Arial, Sans-Serif;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 5px;
+            margin-top: 2px;
+            cursor: pointer;
+        } */
+     .accordionHeader
+        {
+            background-image: url("images/deselectedTabIcon.png");
+            background-position: 4px 4px;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid #0081cc;
+            color: white;
+            background-color: #249ee6;
+            font-family: Arial, Sans-Serif;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 5px 0px 5px 24px;
+            margin-top: 0px;
+            cursor: pointer;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+        .accordionHeader:hover
+        {
+            text-shadow: 0 0 5px #000000;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            background-color: #0081cc;
+        }
+        .accordionHeaderSelected
+        {
+            background: none !important;
+            background-color: #0081cc !important;
+            border-bottom: 1px solid #0081cc;
+            box-shadow: 0 0 5px #FFFFFF;
+            color: white;
+            background-color: #0081cc;
+            font-family: Arial, Sans-Serif;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 5px 0px 5px 24px;
+            margin-top: 0px;
+            cursor: pointer;
+        }
+        .accordionContent
+        {
+            background-color: #fcf3cf; /*border-right: 1px dashed #2F4F4F;*/
+            border-top: none;
+            padding: 0px;
+            max-height: 374px !important;
+            overflow: auto;
+        }
+        .nodeborder
+        {
+            border-bottom: 1px solid #000;
+            float: left;
+            margin: 0px;
+            padding: 0px;
+        }
+        .saleslink
+        {
+            text-decoration: none;
+            color: #333;
+            font-family: arial;
+            font-size: 11px;
+            line-height: 15px;
+        }
+        .saleslink a
+        {
+            text-decoration: none;
+            color: #272727;
+            font-family: arial;
+            font-size: 11px;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+        
+        .saleslink:hover
+        {
+            text-decoration: none;
+            color: red;
+            font-family: arial;
+            font-size: 11px;
+            color: #0c5f90; /*border-bottom: 1px dotted #FF0000;*/
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+    </style>
+    <style>
+        #loading
+        {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+            opacity: 0.6;
+            filter: alpha(opacity=40);
+            z-index: 999;
+            overflow: hidden;
+        }
+        /*#loading #loadingimage
+        {
+            position: fixed;
+            width: 600px;
+            height: 20px;
+            left: 20%;
+            top: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 1000;
+        }*/
+        
+        #loading #loadingimage
+        {
+            height: 20px;
+            left: 30%;
+            position: fixed;
+            top: 40%;
+            width: 610px;
+            z-index: 1000;
+        }
+        
+        *:first-child + html #loading
+        {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+            opacity: 0.6;
+            filter: alpha(opacity=40);
+            z-index: 999;
+            overflow: hidden;
+        }
+        
+        *:first-child + html #loading #loadingimage
+        {
+            position: fixed;
+            width: 600px;
+            height: 20px;
+            left: 32%;
+            top: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 1000;
+        }
+        /*.RadGrid_WebBlue .rgRow a, .RadGrid_WebBlue .rgAltRow a, .RadGrid_WebBlue .rgEditRow a, .RadGrid_WebBlue .rgFooter a, .RadGrid_WebBlue .rgEditForm a
+        {
+            text-decoration: underline !important;
+        }*/
+        .RadForm_Default.rfdGrids .rfdTable th
+        {
+            background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+            border: 0 none !important;
+            color: #333333;
+        }
+        .abc
+        {
+            color: White !important;
+        }
+            .modalBackground
+        {
+            background-color: Black;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+        }
+        .modalPopup
+        {
+            background-color: #FFFFFF;
+            width: 370px;
+            border: 1px solid #0DA9D0;
+            padding: 0;
+        }
+        .modalPopup .header
+        {
+            background-color: #2FBDF1;
+            height: 30px;
+            color: White;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .modalPopup .body
+        {
+            min-height: 50px;
+            line-height: 20px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            padding:10px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.fancyboxfeeagr').fancybox({
+                width: 1300,
+                height: 550,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+            $('.fancyboxfeeagr3').fancybox({
+                width: 800,
+                height: 550,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+
+            $('.fancyboxfeeagr373').fancybox({
+                width: 700,
+                height: 540,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+            $('.fancyboxfeeagr31').fancybox({
+                width: 631,
+                height: 564,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+
+            $('.fancyboxfeeagr313').fancybox({
+                width: 542,
+                height: 335,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoDimensions: true,
+                autoSize: true,
+                closeClick: true
+
+            });
+
+
+            $('.fancyboxfeeagr1').fancybox({
+                width: 1200,
+                height: 700,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+            $('.fancyboxsearchdatabase').fancybox({
+                width: 1024,
+                height: 550,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+            $('.fancyboxchangebranch').fancybox({
+                width: 300,
+                height: 310,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true,
+                afterClose: function () {
+                    window.location.reload(false);
+                }
+            });
+
+            $('.fancyboxchgpwd').fancybox({
+                width: 390,
+                height: 380,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true,
+                afterClose: function () {
+                    window.location.reload(false);
+                }
+            });
+
+            $('.fancyboxclientfollowup_90').fancybox({
+                width: 908,
+                height: 600,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+
+            $('.fancyboxclientfollowup_901').fancybox({
+                width: 880,
+                height: 600,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+            $('.fancyboxImmclass').fancybox({
+                width: 400,
+                height: 370,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+
+            $('.fancyboxImmclass1').fancybox({
+                width: 400,
+                height: 250,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+            $('.fancyboxclientfollowup').fancybox({
+                width: 1020,
+                height: 550,
+                padding: 0,
+
+                openEffect: 'elastic',
+                openSpeed: 500,
+                type: 'iframe',
+                closeEffect: 'elastic',
+                closeSpeed: 500,
+                autoSize: false,
+                closeClick: true
+
+            });
+
+
+        });
+
+
+
+
+
+    </script>
+    <!--[if IE 8]>
+
+    <style>
+    .leftTabTitle .leftTabTopTitle
+    {
+        margin:8px 2px 0px 0;
+    }
+    </style>
+
+    <![endif]-->
+    <!--IE8 compatibility mode & IE7:-->
+    <!--[if IE 7]>
+
+    <style>
+    .leftTabTitle .leftTabTopTitle
+    {
+        margin:8px 2px -5px 0;
+    }
+    </style>
+
+    <![endif]-->
+    <!--[if IE]>  
+    <style>
+        .leftNavBgShad
+        {
+            padding-right: 0px;
+        }
+    </style>
+<![endif]-->
+    <script type="text/javascript">
+        function ShowProgress() {
+            var loadingdiv = document.getElementById("loading");
+            loadingdiv.style.visibility = 'visible';
+        }
+        function hideproress() {
+            var loadingdiv = document.getElementById("loading");
+            loadingdiv.style.visibility = 'hidden';
+        }
+        function hidelod() {
+
+            hideproress();
+            //openNavdefault();
+        }
+
+    </script>
+    <script language="javascript" type="text/javascript">
+        function confirmSearch() {
+            if (confirm("This Process may take little longer to fetch data. \n \n Are you sure you want to proceed ?")) {
+                return true;
+            }
+            else {
+                hideproress();
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
+    <style type="text/css">
+        .imgIcon
+        {
+            float: left;
+            margin: 4px 7px 0 5px;
+            width: 18px;
+            clear: both;
+        }
+        .imgIcon2
+        {
+            clear: both;
+            float: left;
+            margin: 1px 7px 0 5px;
+            width: 18px;
+        }
+        .navigation
+        {
+            color: #272727;
+            background: none !important;
+            height: 17px;
+            list-style: none outside none;
+            margin: 0 auto;
+            padding: 0; /*position: relative;*/
+            width: 55px;
+            z-index: 100;
+            float: left;
+        }
+        .navigation2
+        {
+            color: #272727;
+            height: 17px;
+            list-style: none outside none;
+            padding: 0px 0 0 0; /*position: relative;*/
+            width: 95px;
+            z-index: 100;
+            float: left;
+            font: 10px/20px arial;
+            /*margin: 3px 0 0 17px;*/
+            margin: 3px 0 0 0px;
+        }
+        .navigation2 a
+        {
+            color: #272727;
+            border: 1px solid transparent;
+        }
+        .navigation2 a:hover
+        {
+            background: url(images/topicons/smalliconBg.jpg) repeat-x scroll center top;
+            border: 1px solid #DBCE99;
+            border-radius: 3px;
+            color: #272727;
+            padding: 0px 0 0px 0;
+        }
+        .navigation a.main
+        {
+            color: #272727;
+            display: block;
+            font: 11px/25px arial;
+            height: 28px; /*margin: -22px 0 0;*/
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            top: 0;
+            transition: all 0.2s ease-in-out 0s;
+            width: 80px;
+            z-index: 100;
+            margin: 0px !important;
+        }
+        .navigation:hover, .navigation:hover a.main
+        {
+            border-radius: 0px !important;
+            background: none repeat scroll 0 0 #4C88FF;
+            color: #fff;
+        }
+        
+        .navigation li
+        {
+            font: 12px/26px arial,sans-serif !important;
+            text-align: left;
+            width: 330px;
+            color: #000;
+        }
+        
+        .navigation li a
+        {
+            color: #000;
+        }
+        .navigation li a:hover
+        {
+            color: #4C88FF;
+        }
+        
+        .navigation li:nth-child(2n), .navigation li:nth-child(2n+1)
+        {
+            background: none repeat scroll 0 0 rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #E6E8EA;
+        }
+        
+        
+        .leftsublinks
+        {
+            width: 65px !important;
+        }
+        .leftNavBgShad
+        {
+            z-index: 999;
+        }
+       .containor_left
+       {
+          min-width:0 !important; 
+       }
+       .containor_right {
+
+    width: 98.5%;
+    margin-left:11px;
+z-index: 1;
+
+}
+    </style>
+     <%--<link href="css/webwidget_slideshow_dot.css" rel="stylesheet" type="text/css" />
+   <script type="text/javascript" src="js/webwidget_slideshow_dot.js"></script>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $("#demo3").webwidget_slideshow_dot({
+                slideshow_time_interval: '3000',
+                slideshow_window_width: '273',
+                slideshow_window_height: '117',
+                slideshow_title_color: '#FFF',
+                soldeshow_foreColor: '#7799BB',
+                directory: 'images/'
+            });
+        });
+    </script>--%>
+  
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            $("#notificationLink").click(function () {
+                $("#notificationContainer").fadeToggle(300);
+                //$("#notification_count").fadeOut("slow");
+                return false;
+            });
+
+            //Document Click
+            $(document).click(function () {
+                $("#notificationContainer").hide();
+            });
+            //Popup Click
+            //            $("#notificationContainer").click(function () {
+            //                return false
+            //            });
+
+        });
+</script>
+
+
+<style>
+
+#navnot{list-style:none;margin: 0px;
+padding: 0px;}
+#navnot li {
+float: left;
+margin-right: 20px;
+font-size: 14px;
+margin-top: 7px;
+margin-left: 29%;
+}
+#navnot li a{color:#000000;text-decoration:none; cursor:pointer;}
+#navnot li a:hover{color:#000000;text-decoration:none;cursor:pointer;}
+#notification_li{position:relative}
+#notificationContainer {
+background-color: #fff;
+border: 1px solid rgba(100, 100, 100, .3);
+-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+overflow: visible;
+position: absolute;
+top: 30px;
+margin-left: -139px;
+width: 306px;
+height: 313px;
+z-index: -1;
+display: none;
+border-radius:0px;
+}
+#notificationContainer:before {
+content: '';
+display: block;
+position: absolute;
+width: 0;
+height: 0;
+color: transparent;
+border: 10px solid black;
+border-color: transparent transparent white;
+margin-top: -20px;
+margin-left: 139px;
+}
+#notificationTitle {
+z-index: 1000;
+font-weight: bold;
+padding: 5px;
+font-size: 13px;
+
+width: 296px;
+border-bottom: 1px solid #dddddd;
+text-align: center;
+background-color: #e5e8e8;
+color: #000;
+border-radius:0;
+}
+#notificationsBody {
+padding: 0px 0px 0px 0px !important;
+height:257px;
+}
+#notificationFooter {
+background-color: #e5e8e8;
+text-align: center;
+font-weight: bold;
+padding: 8px;
+font-size: 12px;
+border-top: 1px solid #c9c9c9;
+border-radius:0;
+}
+#notificationFooter a {
+color:#000 !important;
+}
+#notification_count {
+padding: 1px 4px;
+background: #cc0000;
+color: #ffffff;
+font-weight: bold;
+margin-left: 13px;
+border-radius: 9px;
+position: absolute;
+margin-top: -6px;
+font-size: 11px;
+}
+.notification_griddata 
+{
+    width:270px;
+   
+    border-bottom: 1px sold #000;
+}
+.notfication_class_clear
+{
+    border-bottom: 1px solid #000;
+}
+.notification_griddataimg 
+{
+  padding: 4px;
+  width: 50px;
+  float:left;  
+}
+.notification_griddatatext
+{
+    font-family: arial;
+    font-size: 10px;
+   text-decoration:none;
+   width: 238px;
+  float : right;
+ margin-top  : -38px;
+ text-align: left;
+ padding: 5px;
+ margin-right:-13px;
+}
+.notification_griddatadate
+{
+    font-family : arial;
+    font-size: 9px;
+    padding: 0px; 
+    color:#333;
+	width:45%;
+    color:green;
+	text-align:left;
+    display:block;
+	float:left;
+}
+.notification_griddatadate1
+{
+    font-family : arial;
+    font-size: 9px;
+    padding: 0px; 
+    color:red;
+    width:50%;
+	text-align:right;
+	display:block;
+	float:right;
+   
+}
+.notifi
+{
+overflow:hidden;
+}
+.notifications
+{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 257px;
+}
+#navnot li a span {
+font-size:10px !important;
+}
+.altrow
+{
+    background-color:#f0f8ff !important;
+   border-bottom-color: #e7e7e7 !important;
+border-bottom-style: solid !important;
+border-bottom-width: 1px !important;
+padding:0px;
+}
+.itmrow
+{
+    background-color:#fff !important;
+   border-bottom-color: #e7e7e7 !important;
+border-bottom-style: solid !important;
+border-bottom-width: 1px !important;
+padding:0px;
+}
+
+
+.left_pane {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+#whole_width {
+  transition: margin-left .5s;
+ 
+}
+
+</style>
+
+<script type="text/javascript">
+    function clientShow(sender, eventArgs) {
+      // var itmd=$(this).closest("tr").find("input[type=hidden][id*=key]").val()
+        alert("OnClientShow tool tip: " + sender.get_id());
+      
+     // var ownerGridElement = sender.get_element(); 
+     // alert(ownerGridElement);               
+        //find parent item html element's id
+        //var parentRowId = $(ownerGridElement).parents("tr").first().prev("tr.rgRow, tr.rgAltRow")[0].id;
+       // if (parentRowId != "") {
+            //ensure that the outer grid dataItem are generated
+          //  sender.get_parent().get_dataItems();
+            //get referance to parent item object and retrive the datakey value
+          //  alert($find(parentRowId).getDataKeyValue("network_id"));
+       // }
+    } 
+
+    }
+</script>
+<style type="text/css">
+    .RadGrid_WebBlue .rgHeader a {
+        color: #333 !important;
+    }
+    .RadGrid_WebBlue .rgHeader, .RadGrid_WebBlue th.rgResizeCol, .RadGrid_WebBlue .rgHeaderWrapper {
+        border-width: 0 0 1px 1px !important;
+        border-color: #c8c9cb !important;
+        background: #eaeaea !important;
+        color: #333 !important;
+    }
+    .RadGrid_WebBlue .rgAltRow {
+        background: #eaeaea !important;
+    }
+    .RadGrid_WebBlue .rgAltRow td {
+        border-color: #c8c9cb !important;
+    }
+    .RadGrid_WebBlue .rgRow td {
+        border-color: #fff #fff #fff #c8c9cb !important;
+    }
+    .RadGrid_WebBlue .rgMasterTable .rgSelectedCell, .RadGrid_WebBlue .rgSelectedRow {
+        background: #e3dede !important;
+    }
+    .RadGrid_WebBlue .rgSelectedRow td {
+        border-bottom-color: #e3dede !important;
+    }
+    .RadGrid_WebBlue .rgRow td {
+        border-color: #fff #fff #fff #c8c9cb !important;
+    }
+    .RadGrid_WebBlue .rgRow td, .RadGrid_WebBlue .rgAltRow td, .RadGrid_WebBlue .rgEditRow td, .RadGrid_WebBlue .rgFooter td {
+        border-width: 0 0 0px 1px !important;
+    }
+    .RadGrid .rgClipCells .rgHeader, .RadGrid .rgClipCells .rgFilterRow > td, .RadGrid .rgClipCells .rgRow > td, .RadGrid .rgClipCells .rgAltRow > td, .RadGrid .rgClipCells .rgEditRow > td, .RadGrid .rgClipCells .rgFooter > td {
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+    }
+    .RadGrid_WebBlue .rgHeaderDiv {
+        background: #eaeaea !important;
+    }
+    .RadGrid_WebBlue .rgHeaderDiv {
+        border-right-color: #e3dede !important;
+    }
+    .RadGrid_WebBlue .rgSortAsc, .RadGrid_WebBlue .rgSortDesc {
+       /* background-image: url('WebResource.axd?d=jvs753C-IwKJawUs9BXZlsDmQsPCTs38hJQ5vMlDXFW2lB9rCzQqpyytpDumQb3D2TI5NrNBW6M3uY_2ZkxDl7D-X2VrjAbVQa2zd7ZNCYk1&t=635288561880000000') !important; */
+        float: right !important;
+        margin-top: -15px !important;
+    }
+    
+    .RadGrid_WebBlue .rgSortAsc {
+       /* background-image: url('WebResource.axd?d=jvs753C-IwKJawUs9BXZlsDmQsPCTs38hJQ5vMlDXFW2lB9rCzQqpyytpDumQb3D2TI5NrNBW6M3uY_2ZkxDl7D-X2VrjAbVQa2zd7ZNCYk1&t=635288561880000000') !important; */
+        background-image: url('Images/sort/asc.gif') !important;
+    }
+    .RadGrid_WebBlue .rgSortDesc {
+       /* background-image: url('WebResource.axd?d=jvs753C-IwKJawUs9BXZlsDmQsPCTs38hJQ5vMlDXFW2lB9rCzQqpyytpDumQb3D2TI5NrNBW6M3uY_2ZkxDl7D-X2VrjAbVQa2zd7ZNCYk1&t=635288561880000000') !important; */
+        background-image: url('Images/sort/desc.gif') !important;
+    }
+    
+    .RadGrid .rgClipCells .rgHeader {
+      /*  line-height: 5px;
+        padding-top: 9px !important;
+        padding-bottom: 0px !important;
+        vertical-align: text-top;*/
+        overflow: hidden !important;
+    }
+    
+    .RadGrid_WebBlue th.rgSorted {
+        padding-top: 8px !important;
+        height: 10px !important;
+        line-height: 7px !important;
+        padding-bottom: 0px !important;
+    }
+    
+    /* --  Chrome Browser Css Define Start  --  */
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        .RadGrid_WebBlue .rgHeader .rgSortAsc {
+            background-position: 0px 0px !important;
+            height: 16px !important;
+            margin-top: -12px !important;
+            margin-right: -11px !important;
+        }
+        .RadGrid_WebBlue .rgHeader .rgSortDesc {
+            background-position: 0px 0px !important;
+            height: 16px !important;
+            margin-top: -11px !important;
+            margin-right: -11px !important;
+        }
+    }
+    /* --  Chrome Browser Css Define End  --  */
+    
+    /* --  Mozila Firefox Browser Css Define Start  --  */
+    @-moz-document url-prefix() {
+       .RadGrid_WebBlue .rgHeader .rgSortAsc {
+            background-position: 0px 0px !important;
+            height: 16px !important;
+            margin-top: -19px !important;
+            margin-right: -11px !important;
+        }
+        .RadGrid_WebBlue .rgHeader .rgSortDesc {
+            background-position: 0px 0px !important;
+            height: 16px !important;
+            margin-top: -18px !important;
+            margin-right: -11px !important;
+        }
+    }
+    /* --  Mozila Firefox Browser Css Define End  --  */
+}
+</style>
+</head>
+<body onload="hideproress();">
+    <form id="form1" runat="server" style="min-width: 1003px;">
+    <ajax:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </ajax:ToolkitScriptManager>
+     <telerik:RadWindowManager ID="radMessageWindow" BackColor="red" runat="server" Style="z-index: 99999;">
+    </telerik:RadWindowManager>
+     <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
+    <ajax:ModalPopupExtender ID="ModalPopupExtender1" runat="server" BehaviorID="mpe"
+    PopupControlID="pnlPopup" TargetControlID="lnkDummy" BackgroundCssClass="modalBackground" CancelControlID = "btnHide">
+    </ajax:ModalPopupExtender>
+     <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none">
+    <div class="header">
+       Verification Window   <asp:ImageButton ID="btnHide" style="float:right;padding:6px;" runat="server" ImageUrl="Images/close.png"  />
+    </div>
+    <div class="body">
+        <asp:Label ID="lblmsg" runat="server" ></asp:Label>
+         <asp:Label ID="lbloffeml" runat="server" ></asp:Label>
+
+        <asp:Panel ID="Paneleml" runat="server" Visible="false"  >
+        <asp:TextBox ID="txtoffeml" runat="server" style="width: 100%;border: 1;height: 25px;" CssClass="riTextBox riEnabled txt" ></asp:TextBox>
+        <div style="float:right; padding:10px">
+        <asp:ImageButton ID="btnupd" runat="server"  ImageUrl="Images/updatebtn.png" 
+            onclick="btnupd_Click" />
+            </div>
+        </asp:Panel>
+       <br />
+        <asp:ImageButton ID="btnverify" runat="server" style="height:32px;width:360px;" ImageUrl="Images/Verified_button.png" 
+            onclick="btnverify_Click" /> <br />
+        <asp:ImageButton ID="btnnotverify" runat="server" 
+            ImageUrl="Images/Not-this_button.png" style="height:32px;width:360px;" onclick="btnnotverify_Click" />
+  
+    </div>
+</asp:Panel>
+    <telerik:RadNotification EnableRoundedCorners="true" ID="radMessage" Position="TopRight" 
+        EnableShadow="true" Text=""  Style="z-index: 100000" AutoCloseDelay="30000" AnimationDuration="10000" Animation="Fade" Title="Notification" Width="300" Height="100" runat="server">
+    </telerik:RadNotification>
+    <div id="loading">
+        <div id="loadingimage" style="color: White; font-size: 17px; line-height: 55px; font-family: verdana;
+            text-align: center;">
+            System may take time based on data extracted as per User criteria...
+            <img src="Images/loadingnew.gif" width="80px" height="80px" />
+        </div>
+    </div>
+    <div id="Header">
+        <div class="maintable">
+            <div class="header">
+                <div class="topbg">
+                    <div class="headingtop">
+                        <div class="topheadingimg">
+                            <a href="#" target="_blank" runat="server" id="lnkTopHeaderQuery" style="border: 0px none;">
+                                <img src="Images/dashboard_01.png" runat="server" id="imgTopHeading" style="border: 0px none" /></a>
+                        </div>
+                    </div>
+                    <div class="zaxis-logo">
+                        <asp:Image ID="imgZaxisLogo" ImageUrl="Images/zaxLogo.png" runat="server" border="0"
+                            alt="" />
+                    </div>
+					
+					<div>
+					
+					
+					</div>
+					
+                     <div>
+                     
+<ul id="navnot">
+
+<li id="notification_li">
+ <asp:UpdatePanel ID="UpdatePanel1156" RenderMode="Inline" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+<span id="notification_count" runat="server">0</span>
+
+<asp:Timer ID="Timer2" runat="server" Interval="10000" ontick="Timer1_Tick">
+                    </asp:Timer>
+ </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="Timer2" EventName="Tick" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+<a href="#" id="notificationLink"><img src="noticons/bell-notf.png" width="20px" alt=""/></a>
+<div id="notificationContainer">
+<div id="notificationTitle">Notifications</div>
+
+
+<div id="notificationsBody" runat="server">
+<div class='notifications' id="rahulnot">
+<asp:UpdatePanel ID="UpdatePanel156589" RenderMode="Inline" UpdateMode="Conditional" runat="server">
+                    <ContentTemplate>
+<asp:DataList ID="ddllist" DataKeyField="zxnotid" runat="server" 
+        onitemdatabound="ddllist_ItemDataBound" >
+<ItemTemplate>
+<asp:HiddenField ID="key" runat="server" Value='<%#Eval("zxnotid") %>' />
+<div class='notification_griddata' >
+<div  class='notification_griddataimg'>
+<img src='<%#Eval("icn") %>' alt="<%#Eval("icnalt") %>" width='30px'>
+</div>
+<div  class='notification_griddatatext'> <a id="notherf" runat="server" class="fancyboxfeeagr313"><asp:Label id="lblkms" runat="server" Text='<%#Eval("descr") %>'></asp:Label>
+<div class="notifi">
+<span class='notification_griddatadate'><%#TimeAgo1(Convert.ToDateTime(Eval("zxntfpostdt")))%></span>
+<span class='notification_griddatadate1'><%#Eval("Readdt")%></span></div>
+</a>
+</div>
+</div>
+
+</ItemTemplate>
+</asp:DataList>
+<asp:Timer ID="Timer1" runat="server" Interval="10000" ontick="Timer1_Tick">
+                    </asp:Timer>
+ </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+</div>
+</div>
+<div id="notificationFooter" ><a href="popup.aspx?p=notification&q=allsee&id=0" class="fancyboxfeeagr373">See All</a></div>
+</div>
+
+</li>
+
+</ul>
+
+
+
+
+
+</div>
+
+                </div>
+                <%--<div class="sublinks_bg">
+                    <div class="leftsublinks">
+                        <div class="leftlinks01">
+                              <ul>
+                                <li><a href="#" title="Fee Agreement">
+                                    <img src="Images/topicons/fee-agreement.png" border="0" title="Fee Agreement" />
+                                    FA</a> </li>
+                                <li><a href="#" title="Incentive Status">
+                                    <img src="Images/topicons/incentive.png" border="0" title="Incentive Status" />
+                                    IS</a> </li>
+                                <li><a href="#" title="wwes Course Viewer">
+                                    <img src="Images/topicons/courseviewer.png" border="0" title="wwes Course Viewer" />
+                                    WCV</a> </li>
+                                <li><a href="#" title="Sessions">
+                                    <img src="Images/topicons/sessions.png" border="0" title="Sessions" />
+                                    SN</a> </li>
+                                <li><a href="#" title="Search Database">
+                                    <img src="Images/topicons/searchdatabase.png" border="0" title="Search Database" />
+                                    SD</a> </li>
+                                <li><a id="lnkAnchorChangeBranch" runat="server" title="Change Branch" style="cursor: pointer;">
+                                    <img border="0" src="Images/topicons/branch.png" title="Change Branch" />
+                                    CB</a> </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="midsublinks">
+                        
+            <a href="#">
+                            <div class="alert">
+                                <img src="Images/topicons/red_alrt.png" border="0" />
+                                <span class="alertmesg">Alert Message</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="rightsublinks">
+                        <div class="detailtxtarea">
+                            <div class="detailarea">
+                                <div class="txtwelcome01">
+                                    Welcome, <span class="welcomeName">
+                                        <%=Session["EmpName"]%></span></div>
+                                <div class="txtwelcome01">
+                                    <table cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td align="left">
+                                                Last Login:&nbsp; <span class="welcomeName">
+                                                    <asp:Label ID="lblLastLogin" runat="server" Text=""></asp:Label></span>
+<span style="font:10px/13px arial; color:#272727;">(<span style="color:#c70000;">Active Branch :</span>  <asp:Label ID="lblActiveBranch" runat="server" Text=""></asp:Label>)</span>
+                                            </td>
+                                            <td align="right" style="padding-left: 20px; float: right;">--%>
+                <%--Timer section commented begin--%>
+                <%--<asp:Timer ID="tmrSession" Interval="1000" runat="server" OnTick="tmrSession_Tick">
+                                                </asp:Timer>
+                                                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                                    <Triggers>
+                                                        <asp:AsyncPostBackTrigger ControlID="tmrSession" EventName="Tick" />
+                                                    </Triggers>
+                                                    <ContentTemplate>
+                                                        Login Since:&nbsp; <span class="welcomeName">
+                                                            <asp:Label ID="lblUserSession" runat="server" Text=""></asp:Label></span>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>--%>
+                <%--Timer section commented end--%>
+                <%--</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="signoutbtn">
+                                    <a id="lnkAnchorLogout" runat="server" href="login.aspx?logout=success">Sign out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>--%>
+                <%-- Sublink menubar begin --%>
+                <div class="sublinks_bg">
+                    <div class="leftsublinks">
+                        <div class="leftlinks01">
+                            <ul>
+                                <%--<li><a href="popup.aspx?p=dfr" title="DFR" class="fancyboxfeeagr">
+                                    <img src="Images/SmallIcons/submit_dfr.png" border="0" title="DFR" />DFR&nbsp;</a>
+                                </li>--%>
+                                <%--<li><a id="a1" href="#" title="Fee Agreement" runat="server" class="fancyboxfeeagr">
+                                    <img src="Images/topicons/fee-agreement.png" border="0" title="Fee Agreement" />Fee
+                                    Agr.&nbsp;</a> </li>--%>
+                               <%-- <li><a href="popup.aspx?p=drr_new" title="DRR" class="fancyboxfeeagr1">
+                                    <img src="Images/SmallIcons/daily retainer report 16x16.png" border="0" title="DRR" />DRR&nbsp;</a>
+                                </li>--%>
+                                <li><a id="A4" href="Clientquery.aspx" runat="server" title="Client Stats" onclick="ShowProgress();"
+                                    style="cursor: pointer;">
+                                    <img border="0" title="Client Status" src="images/topicons/user_client.png">
+                                    Client Status</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                      <ul class="navigation" style="width:140px; height:25px;">
+                        <a class="main" href="#url" style="width:150px !important; padding-right:6px;"><img style="vertical-align: -4px; padding-right: 3px;" src="Images/topicons/fee-agreement.png" border="0" title="Retention Process" /> Retention Process</a>
+                       <li style="width:190px !important;"><a href="retainer_invoice_list.aspx" title="Generate Retainer Invoice" >
+                                  <div class="imgIcon">  <img src="Images/SmallIcons/submit_dfr.png" border="0" title="Generate Retainer Invoice" /></div>Generate Invoice&nbsp;</a>
+                                </li>
+                       <li style="width:190px !important;"><a href="popup.aspx?p=dfr" title="DFR" class="fancyboxfeeagr">
+                                  <div class="imgIcon">  <img src="Images/SmallIcons/submit_dfr.png" border="0" title="DFR" /></div>Professional Fee Reciept&nbsp;</a>
+                                </li>
+                     
+                                 <li style="width:190px !important;">
+                                <a href="popup.aspx?p=frsh" title="Fresh Client" class="fancyboxfeeagr1">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Fresh Client" src="Images/topicons/fee-agreement.png"></div>
+                                  Aggreement </a>
+                        </li>
+                                  <li style="width:190px !important;"><a href="popup.aspx?p=drr_new" title="DRR" class="fancyboxfeeagr1">
+                                 <div class="imgIcon">   <img src="Images/SmallIcons/daily retainer report 16x16.png" border="0" title="DRR" /></div>DRR&nbsp;</a>
+                                </li>
+                      </ul>
+
+                    <ul class="navigation" style="width:92px; height:25px;">
+                        <a class="main" href="#url" style="width:106px !important; padding-right:6px;"><img style="vertical-align: -4px; padding-right: 3px;" src="Images/topicons/fee-agreement.png" border="0" title="Fee Agreement" /> Fee Agreement</a>
+                        <li style="width:190px !important;">
+                                <a href="popup.aspx?p=agrdual" title="Fresh Client" class="fancyboxfeeagr1">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Fresh Client" src="Images/topicons/fee-agreement.png"></div>
+                                   Fresh Client</a>
+                        </li>
+                        <li style="width:190px !important;">
+                                <a href="popup.aspx?p=exst" title="Existing Client" class="fancyboxfeeagr1">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Existing Client" src="Images/topicons/fee-agreement.png"></div>
+                                    Existing Client</a>
+                        </li>
+						
+						 <li style="width:190px !important;display:none;" >
+                                <a href="CBIS.pdf" target="_blank" title="CBIS Aggreement">
+                                    <div class="imgIcon">
+                                        <img border="0" title="CBIS Aggreement" src="Images/topicons/fee-agreement.png"></div>
+                                    CBIS Aggreement</a>
+                        </li>
+						
+						
+                    </ul>
+                    <ul class="navigation" style="width:78px; margin-left: 10px;">
+                        <a class="main" style="width:72px;" href="#url">Other links...</a>
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a href="popup.aspx?p=mdregister" title="Md Register" class="fancyboxfeeagr3">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Md Register" src="Images/topicons/md-register.png"></div>
+                                    MD Register</a></div>
+                            <div style="width: 50%; float: right;">
+                                <a id="a2" href="#" title="Search Database" runat="server" class="fancyboxsearchdatabase">
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMS" src="Images/topicons/searchdatabase.png"></div>
+                                    Search Database</a></div>
+                        </li>
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a id="lnkAnchorChangeBranch" runat="server" class="fancyboxchangebranch" title="Change Branch"
+                                    style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Change Branch" src="Images/topicons/branch.png"></div>
+                                    Switch Branch</a></div>
+                            <div style="width: 50%; float: right;">
+                                <a id="A3" href="#" runat="server" title="Immigration Class" class="fancyboxImmclass"
+                                    style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMS" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Immigration Category</a></div>
+                        </li>
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a id="A6" href="" runat="server" title="QA Follow Up" class="fancyboxclientfollowup"
+                                    style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Change Branch" src="Images/topicons/followup16x16.png"></div>
+                                    Follow Up</a></div>
+                            <div style="width: 50%; float: right;">
+                                <a id="cissretainer" runat="server" class="fancyboxchangebranch" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMS" src="Images/topicons/clients17x17.png"></div>
+                                    Other Receipts</a></div>
+                        </li>
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a href="active01.aspx" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Change Branch" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Active Payplans</a></div>
+                            <div style="width: 50%; float: right;">
+                                <a href="Singlesms.aspx" style="cursor: pointer;" class="fancyboxImmclass1">
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMS" src="Images/send_sms16x16.png"></div>
+                                    SMS</a></div>
+                        </li>
+
+                        
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a href="webform.aspx" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Change Branch" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    WebForm Submissions</a></div>
+                                     <div style="width: 50%; float: right;">
+                                <a href="smmleads.aspx" style="cursor: pointer;" >
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMM-Lead Transfer" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    SMM- Lead Transfer</a></div>
+                        </li>
+
+                        
+                        <li ID="panelpay" runat="server">
+                            
+                                <div style="width: 50%; float: left;"><a id="A76" href="#" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="SMS" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Front Office</a></div>
+                        <div style="width: 50%; float: right;"><a id="A31" href="#" runat="server" style="cursor: pointer;">
+                            <div class="imgIcon">
+                                <img border="0" title="SMS" src="Images/topicons/immigrationClass16x16.png"></div>
+                            Payment Plan</a> </div> </li>
+                          
+                        <li ID="paneladmtest" runat="server">
+                        
+                         <div style="width: 50%; float: left;"><a id="assformslink" href="datamaster.aspx" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Data Collection" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Data Collection</a></div>
+                        <div style="width: 50%; float: right;">
+                        <a id="a1" href="popup.aspx?p=shrturl" class="fancyboxfeeagr1" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Assessment Form" src="Images/topicons/immigrationClass16x16.png"></div>
+                                 Gen. Shorten Link</a>
+                        
+                         </div>
+                                         
+                                </li>
+
+<li>
+                            <div style="width: 50%; float: left;">
+                                <a href="TCC_list.aspx" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Tellecaller Screen" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Tellecaller Module</a></div>
+                                     <div style="width: 50%; float: right;">
+                                <a href="tech_assessment.aspx" style="cursor: pointer;" >
+                                    <div class="imgIcon">
+									<img border="0" title="Tech. Eval. Cases" src="Images/topicons/immigrationClass16x16.png"></div>
+									Tech. Eval. Cases
+                                       </a></div>
+                        </li>
+                            
+                        <li>
+                            <div style="width: 50%; float: left;">
+                                <a href="Bus_investment_list.aspx" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Business Investment Screen" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Business Investment</a></div>
+                                     <div style="width: 50%; float: right;">
+                                <a href="reqform_list.aspx" style="cursor: pointer;" >
+                                     <div class="imgIcon">
+                                        <img border="0" title="Requisition Screen" src="Images/topicons/immigrationClass16x16.png"></div>
+                                    Requisition Form
+                                       </a></div>
+                        </li>   
+							
+							 <li>
+                            <div style="width: 50%; float: left;">
+                                <a href="seminarleads.aspx" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Business Investment Screen" src="Images/topicons/immigrationClass16x16.png"></div>
+                                  Seminar Leads</a></div>
+                                     <div style="width: 50%; float: right;">
+                                <a href="whatsapp_enq.aspx" style="cursor: pointer;" >
+                                    <div class="imgIcon">
+                                        <img border="0" title="Requisition Screen" src="Images/topicons/immigrationClass16x16.png"></div>
+                                   WhatsApp Lead
+                                       </a></div>
+                        </li>   
+							
+							<li>
+                            <div style="width: 50%; float: left;">
+                                 <a href="popup.aspx?p=shrturl" class="fancyboxfeeagr1" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Assessment Form" src="Images/topicons/immigrationClass16x16.png"></div>
+                                 Gen. Shorten Link</a></div>
+                                     <div style="width: 50%; float: right;">
+                            <!--    <a href="tech_assessment.aspx" style="cursor: pointer;" >
+                                    <div class="imgIcon">
+									<img border="0" title="Tech. Eval. Cases" src="Images/topicons/immigrationClass16x16.png"></div>
+									Tech. Eval. Cases
+                                       </a> --></div>
+                        </li>
+
+                        	<li>
+                            <div style="width: 50%; float: left;">
+                                 <a id="A7" href="popup.aspx?p=onlteam" class="fancyboxfeeagr1" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Assessment Form" src="Images/topicons/immigrationClass16x16.png"></div>
+                                 Online Team</a></div>
+								 
+								 
+								   <div style="width: 50%; float: left;">
+                                 <a id="A17" href="popup.aspx?p=onlHelp" class="fancyboxfeeagr1" runat="server" style="cursor: pointer;">
+                                    <div class="imgIcon">
+                                        <img border="0" title="Assessment Form" src="Images/topicons/immigrationClass16x16.png"></div>
+                                 Online Helpdesk</a></div>
+								 
+								 
+                                     <div style="width: 50%; float: right;">
+                            <!--    <a href="tech_assessment.aspx" style="cursor: pointer;" >
+                                    <div class="imgIcon">
+									<img border="0" title="Tech. Eval. Cases" src="Images/topicons/immigrationClass16x16.png"></div>
+									Tech. Eval. Cases
+                                       </a> --></div>
+                        </li>
+							
+
+
+                    </ul>
+                    <ul class="navigation2">
+                        <a id="A5" href="MyLeads.aspx" runat="server" title="Back to MIS"
+                            style="cursor: pointer;">
+                            <div class="imgIcon2">
+                                <img border="0" src="images/back16x16.png" title="Back to Home Page" /></div>
+                            Back to MIS</a>
+                    </ul>
+                    <div class="leftsublinks" style="width: 110px ! important;">
+                        <div class="">
+                            <ul>
+                                <li><a href="popup.aspx?p=crs" class="fancyboxfeeagr1">
+                                    <img src="Images/SmallIcons/crs-calc.gif" border="0" title="CRS Calculator" style="margin-left: 6px;
+                                        margin-top: 1px;" /></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+              <div class="leftsublinks" style="width: 92px ! important;">
+                        <div class="">
+                            <ul>
+                                  <li> <a id="chgpwdlnk" href="popup.aspx?p=chgpwd" runat="server" title="ChangePassword" class="fancyboxchgpwd"
+                                                             style="cursor: pointer;color:#000;margin-top:6px;float:left;position:relative;">Change Password</a></li>
+                                                  
+                            </ul>
+                        </div>
+                    </div>
+					 <div class="leftsublinks" style="width: 80px ! important;">
+                        <div class="">
+                            <ul>
+                                 <li> <a id="oprlnk" href="operations.aspx" runat="server" title="Operations" style="cursor: pointer;color:#000;margin-top:6px;float:left;position:relative;">Operations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+					
+                    <div class="rightsublinks">
+                        <div class="detailtxtarea" width="400px">
+                            <div class="detailarea" width="400px">
+                                <table width="170px" align="left" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td align="right" width="23%" class="txtwelcome01" style="width:80px">
+                                            Branch : &nbsp; 
+                                        </td>
+                                        <td align="left" width="75%" class="welcomeName" style="width:135px">
+                                         <asp:Label ID="lblActiveBranch" runat="server" Text=""></asp:Label> 
+                               <%--  &nbsp; | Login Time:&nbsp;     <asp:Label ID="lbcurrlogin" runat="server" Text=""></asp:Label>--%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"  width="23%" class="txtwelcome01" style="width:80px">
+                                            Lt Login :&nbsp;
+                                        </td>
+                                        <td align="left" width="75%" class="welcomeName" style="width:135px">
+                                            <asp:Label ID="lblLastLogin" runat="server" Text=""></asp:Label>
+                                        </td>
+                                    </tr>
+                                    
+                                      
+                                </table>
+                                <table width="100px" align="right" cellpadding="0" cellspacing="0" border="0" class="signoutbtn">
+                                    <tr>
+                                        <td>
+                                            <div id="dd" class="wrapper-dropdown-5" tabindex="1">
+                                                <%=Session["EmpName"]%>
+                                                <ul class="dropdown">
+                                                    <li><a href="#"><i class="icon-user"></i>Profile</a></li>
+                                                    <li><a href="#"><i class="icon-cog"></i>Settings</a></li>
+                                                       <li ><i class="icon-cog"></i><asp:LinkButton ID="lnkeml" runat="server" 
+                                                              Text="Change Official Email" style="margin-top:-5px;float:right;margin-right:-28px;" onclick="lnkeml_Click" ></asp:LinkButton></li>
+                                                    <li><a id="lnkAnchorLogout" runat="server" href="logout.aspx?req=out"><i class="icon-remove">
+                                                    </i>Sign-out</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="30px" align="left" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td align="left">
+                                            <a  id="altwind" runat="server" class="fancyboxfeeagr3">
+                                                <div class="alert">
+                                                    <img src="Images/topicons/red_alrt.gif" border="0" />
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%-- sublink menubar end --%>
+            </div>
+        </div>
+    </div>
+    <div id="Content">
+        <div class="containor www-left">
+            <%--  <div class="containor_left">
+                <!--ACCORDIAN START-->
+                <ajax:Accordion ID="Accordion1" CssClass="accordion" HeaderCssClass="accordionHeader"
+                    HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
+                    runat="server">
+                    <Panes>
+
+
+                        <ajax:AccordionPane ID="AccordionPane1" runat="server">
+                            <Header>
+                                Transactions</Header>
+                            <Content>
+                                <asp:GridView ID="gvTransactions" OnRowDataBound="gvTransactions_RowDataBound" runat="server"
+                                    AutoGenerateColumns="false" BorderWidth="0" Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane4" runat="server">
+                            <Header>
+                                Tools</Header>
+                            <Content>
+                                <asp:GridView ID="gvTools" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();"  PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane5" runat="server">
+                            <Header>
+                                Analytics</Header>
+                            <Content>
+                                <asp:GridView ID="gvAnalytics" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();"  PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane2" runat="server">
+                            <Header>
+                                Reports</Header>
+                            <Content>
+                                <asp:GridView ID="gvReports" OnRowDataBound="gvReports_RowDataBound" runat="server"
+                                    AutoGenerateColumns="false" BorderWidth="0" Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();"  PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane3" runat="server">
+                            <Header>
+                                Virtual Register</Header>
+                            <Content>
+                              
+                                            <asp:GridView ID="gvVirtualRegister" OnRowDataBound="gvVirtualRegister_RowDataBound"
+                                                runat="server" AutoGenerateColumns="false" HeaderStyle-HorizontalAlign="Left"
+                                                RowStyle-HorizontalAlign="Left" BorderWidth="0" Width="100%" GridLines="Horizontal">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Pre-Sales" ItemStyle-CssClass="virtual_lft" ItemStyle-Width="10%">
+                                                        <ItemTemplate>
+                                                            <asp:Image ID="imgPageLogo"  ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                                runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-CssClass="virtual_right" ItemStyle-Width="90%">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();"  PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                                CommandName="openpage"  runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                               
+
+                                            <asp:GridView ID="gvVirtualRegisterPostSales" HeaderStyle-HorizontalAlign="Left" runat="server" AutoGenerateColumns="false"
+                                                BorderWidth="0" Width="100%" GridLines="Horizontal" RowStyle-HorizontalAlign="Left">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Post-Sales" ItemStyle-CssClass="virtual_lft" ItemStyle-Width="10%">
+                                                        <ItemTemplate>
+                                                            <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                                runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-CssClass="virtual_right" ItemStyle-Width="90%">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                                CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                            </asp:GridView>
+                                      
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane6" runat="server">
+                            <Header>
+                                Discrepancies</Header>
+                            <Content>
+                                <asp:GridView ID="gvDiscrepancies" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane7" runat="server">
+                            <Header>
+                                Utilities</Header>
+                            <Content>
+                                <asp:GridView ID="gvUtilities" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                    </Panes>
+                </ajax:Accordion>
+                <!--//ACCORDIAN END-->
+            </div>--%>
+
+          
+
+<div id="left_pane" class="containor_left leftNavBgShad sidebar" runat="server">
+ <div id="btnleftt" class="btnleftt1"> <a class="openbtn" id="opena" onclick="openNav()"><i class="fa fa-th-list" aria-hidden="true"></i></a>  
+ <a href="javascript:void(0)" id="closea" class="closebtn" onclick="closeNav()"><i class="fa fa-times" aria-hidden="true"></i></a>
+ </div>
+               
+                 
+                <!--ACCORDIAN START-->
+                <ajax:Accordion ID="Accordion1" CssClass="accordion" HeaderCssClass="accordionHeader"
+                    HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
+                    runat="server">
+                    <Panes>
+                   
+                    <ajax:AccordionPane ID="AccordionPane1" runat="server">
+                    <Header>
+                    <div class="leftTabTopTitle">
+                    <a   id="dashlnk" runat="server" onclick="ShowProgress();">
+                        <div class="leftTabTitleText">
+                            Dashboard</div>
+                    </a>
+                </div>
+                      </Header>
+                    </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="TransactionsAccordionPane" runat="server">
+                            <Header>
+                       
+                              <!-- <a id="ab_transaction" runat="server" class="abc" onclick="ShowProgress();" href="FOE.aspx">-->
+                                    Transactions<!--</a>-->
+                            </Header>
+                            <Content>
+                                <asp:GridView ID="gvTransactions" OnRowDataBound="gvTransactions_RowDataBound" runat="server"
+                                    AutoGenerateColumns="false" BorderWidth="0"  ShowHeader="false" GridLines="none" 
+                                     RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-img">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-txt">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("PAGEURL") %>'
+                                                    CommandArgument='<%#Eval("MENUID") %>' CommandName="openpage" CssClass="saleslink"
+                                                    runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane4" runat="server">
+                            <Header>
+                                <%-- <a  id="a5" runat="server" class="abc" onclick="ShowProgress();" href="TransactionPageErrornew.aspx">--%>
+                                Tools<%--</a>--%>
+                            </Header>
+                            <Content>
+                                <asp:GridView ID="gvTools" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="none" RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-img">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-txt">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("PAGEURL") %>'
+                                                    CommandArgument='<%#Eval("MENUID") %>' CommandName="openpage" CssClass="saleslink"
+                                                    runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                     
+                        <ajax:AccordionPane ID="AccordionPane2" runat="server">
+                            <Header>
+                                <%-- <a href="reportbranch.aspx" id="a5_Reports" runat="server" class="abc" onclick="ShowProgress();">
+                                    Reports</a>--%>
+                                <a href="javascript:void()" id="a5_Reports" runat="server" class="abc">Reports</a>
+                            </Header>
+                            <Content>
+                                <asp:GridView ID="gvReports" OnRowDataBound="gvReports_RowDataBound" runat="server"
+                                    AutoGenerateColumns="false" BorderWidth="0" Width="100%" ShowHeader="false" GridLines="none"
+                                    RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-img">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-txt">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("PAGEURL") %>'
+                                                    CommandArgument='<%#Eval("MENUID") %>' CommandName="openpage" CssClass="saleslink"
+                                                    runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                        <ajax:AccordionPane ID="AccordionPane3" runat="server">
+                            <Header>
+                               <a href="UserDashBoard.aspx" id="myvirtual_register" runat="server" class="abc" onclick="ShowProgress();">
+                                    My Virtual Register (Dashboard) </a></Header>
+                            <Content>
+                                <asp:GridView ID="gvVirtualRegister" OnRowDataBound="gvVirtualRegister_RowDataBound"
+                                    runat="server" AutoGenerateColumns="false" HeaderStyle-HorizontalAlign="Left"
+                                    RowStyle-HorizontalAlign="Left" BorderWidth="0"  GridLines="none"
+                                    DataKeyNames="msgbox" RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField HeaderStyle-CssClass="th-header" ItemStyle-CssClass="virtual_lft nav-img" ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Pre-Sales" HeaderStyle-CssClass="th-header" ItemStyle-CssClass="virtual_right nav-txt" ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top">
+                                            <ItemTemplate>
+                                                <%--  <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("pageurl") %>'
+                                                    CommandArgument='<%#Eval("menuID") %>' CommandName="openpage" runat="server"
+                                                    Text='<%#Eval("menuName") %>'></asp:LinkButton>--%>
+                                                <asp:LinkButton ID="lnkBtnPageName" OnClientClick="ShowProgress();  return confirmSearch(); "
+                                                    PostBackUrl='<%#Eval("PAGEURL") %>' CommandArgument='<%#Eval("MENUID") %>' CommandName="openpage"
+                                                    runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkno" OnClientClick="ShowProgress();" PostBackUrl='<%#Eval("PAGEURL") %>'
+                                                    CommandArgument='<%#Eval("MENUID") %>' CommandName="openpage" runat="server"
+                                                    Text='<%#Eval("MNNAME") %>' Visible="false"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            <%--    <asp:GridView ID="gvVirtualRegisterPostSales" HeaderStyle-HorizontalAlign="Left"
+                                    runat="server" AutoGenerateColumns="false" BorderWidth="0" Width="240px" GridLines="none"
+                                    RowStyle-HorizontalAlign="Left" RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField HeaderStyle-CssClass="th-header" ItemStyle-CssClass="virtual_lft nav-img" ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Post-Sales" HeaderStyle-CssClass="th-header" ItemStyle-CssClass="virtual_right nav-txt" ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("PAGEURL") %>' CommandArgument='<%#Eval("MENUID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>--%>
+                            </Content>
+                        </ajax:AccordionPane>
+     <%--                   <ajax:AccordionPane ID="AccordionPane6" runat="server" Visible="false">
+                            <Header>
+                                Discrepancies
+                            </Header>
+                            <Content>
+                                <asp:GridView ID="gvDiscrepancies" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="240px" ShowHeader="false" GridLines="none" RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-img">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-txt">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("PAGEURL") %>' CommandArgument='<%#Eval("MENUID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>--%>
+                        <%-- <ajax:AccordionPane ID="AccordionPane7" runat="server">
+                            <Header>
+                                <a href="TransactionPageErrornew.aspx" id="a5_Utilities" runat="server" class="abc" onclick="ShowProgress();">  Utilities</a> </Header>
+                            <Content>
+                                <asp:GridView ID="gvUtilities" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="100%" ShowHeader="false" GridLines="none">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="10%">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="90%">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("pageurl") %>' CommandArgument='<%#Eval("menuID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("menuName") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>--%>
+                        <ajax:AccordionPane ID="AccordionPane7" Visible="False" runat="server">
+                            <Header>
+                                <a href="" id="a5_Utilities" runat="server" class="abc" onclick="ShowProgress();">Virtual
+                                    Library</a>
+                            </Header>
+                            <Content>
+                                <asp:GridView ID="gvUtilities" runat="server" AutoGenerateColumns="false" BorderWidth="0"
+                                    Width="240px" ShowHeader="false" GridLines="none" RowStyle-CssClass="nav-tr" AlternatingRowStyle-CssClass="nav-tr-alt">
+                                    <Columns>
+                                        <asp:TemplateField ItemStyle-Width="5%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-img">
+                                            <ItemTemplate>
+                                                <asp:Image ID="imgPageLogo" style="display:none;" ImageUrl='<%#Eval("imageURL", "images/smallicons/{0}") %>'
+                                                    runat="server" />
+                                                <img src="Images/SmallIcons/nav-icon2.png" width="5px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="95%" ItemStyle-VerticalAlign="Top" ItemStyle-CssClass="nav-txt">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkBtnPageName" PostBackUrl='<%#Eval("PAGEURL") %>' CommandArgument='<%#Eval("MENUID") %>'
+                                                    CommandName="openpage" CssClass="saleslink" runat="server" Text='<%#Eval("MNNAME") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </Content>
+                        </ajax:AccordionPane>
+                    </Panes>
+                </ajax:Accordion>
+                <!--//ACCORDIAN END-->
+                <div class="leftTabTitle">
+                    <div class="leftTabBottomTitle">
+                    </div>
+                </div>
+                <div style="bottom: 0px; position: absolute; right: 7px;">
+                    <%--<a href="images/flowchart.jpg" class="fancyboxclientfollowup_90">
+                        <image width="100%" src="images/branchmodule_assistant.png"></image>
+                    </a>--%>
+                    <div style="bottom: 0px; position: absolute; right: 7px; display: none;">
+                      <%--  <div id="demo3" class="webwidget_slideshow_dot">
+                            <ul>
+                                <li><a class="fancyboxclientfollowup_901" href="images/flowchart.jpg" title="Sky">
+                                    <img width="100%" src="images/branchmodule_assistant.png">
+                                </a></li>
+                                <li><a class="fancyboxclientfollowup_90" href="http://www.wwicsestates.com/360/_flash/imperial-360-degreeview.html"
+                                    title="Sky">
+                                    <img width="100%" src="images/icon_360degree.png" style="margin-top: 13px;">
+                                </a></li>
+                            </ul>
+                            <div style="clear: both">
+                            </div>
+                        </div>--%>
+                        <%-- <a class="fancyboxclientfollowup_90" href="images/flowchart.jpg"><img width="100%" src="images/branchmodule_assistant.png"> </a>--%>
+                    </div>
+                </div>
+            </div>
+ 
+       
+          
+            <div class="containor_right" id="whole_width" runat="server">
+          
+                <div class="addnewsection">
+                    <%-- <div class="addnewsection_lft">
+            <div class="tabular">
+               
+                <telerik:RadTabStrip ID="RadTabStrip1" runat="server">
+                <Tabs>
+                <telerik:RadTab Text="Dashboard">
+                </telerik:RadTab>
+                <telerik:RadTab Text="Page Name">
+                </telerik:RadTab>
+                </Tabs>
+                </telerik:RadTabStrip> 
+            </div>
+        </div>--%>
+                </div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+				
+            </div>
+       
+        </div>
+    </div>
+    <div id="Footer">
+        <div class="footer">
+            <%-- <div class="footertxt">
+                Designed & Developed By : Pinnacle Infoedge Pvt Ltd</div>--%>
+            <div class="footertxt">
+                Copyright © wwicsgroup.com, All rights reserved<br />
+                Designed & Developed By : Pinnacle Infoedge Pvt Ltd</div>
+            <div class="footertxt2">
+                for Z-aXis database and technical support call +91-0172-6663600 (ext. 486 / 487
+                / 222 / 333),<br />
+                +91-95010-32184, +91-82880-79424, +91-86990-29110</div>
+        </div>
+    </div>
+     <script type="text/javascript" src="lib/jquery.mousewheel-3.0.6.pack.js"></script>
+        <!-- Add fancyBox main JS and CSS files -->
+        <script type="text/javascript" src="source/jquery.fancybox.js?v=2.1.5"></script>
+       <script type="text/javascript" src="source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+        <script type="text/javascript" src="source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+        <!-- Add Media helper (this is optional) -->
+        <script type="text/javascript" src="source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+        <script src="Scripts/jquery.easydrag.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/ns-style-other.css" />
+  <%--  <script src="js/modernizr.custom.js"></script>
+    <script src="js/snap.svg-min.js"></script>--%>
+    <script src="scripts/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <%--notification end here 
+    --%>
+  
+   
+    <script type="text/javascript">
+        var check_status;
+        var c = 0;
+        var b = 0;
+        function ShowCurrentTime(a) {
+
+            if (c >= 0) {
+                // b = b + 1;
+                c = c + 1;
+            }
+
+            if (c >= ttt) {  //increase one the total countt of query in table
+                c = 0;
+                // b = 0;
+            }
+            //            alert("c" + c);
+            //            alert("b" + b);
+            $.ajax({
+                type: "POST",
+                url: "calling.aspx/GetCurrentTime",
+                data: '{count: "' + c + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess,
+                failure: function (response) {
+                    //  alert(response.d);
+                }
+            });
+        }
+        function OnSuccess(response) {
+            //alert(response.d);
+
+
+            //  alert(1);
+            if (response.d == "reset") {
+                c = 0;
+                // ShowCurrentTime(a);
+            }
+            else {
+                check_status = response.d;
+            }
+        }
+    </script>
+
+
+
+    <asp:HiddenField ID="hf_notification" runat="server" />
+    <div class="notification-shape shape-box" id="notification_shape" data-path-to="m 0,0 500,0 0,500 -500,0 z"
+        style="visibility: hidden; z-index: 9000;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 500 500"
+            preserveaspectratio="none">
+				                        <path d="m 0,0 500,0 0,500 0,-500 z"/>
+			                        </svg>
+    </div>
+    <script src="js/classie.js" type="text/javascript"></script>
+    <script src="js/notificationFx.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function openNav() {
+
+            document.getElementById("left_pane").style.width = "13%";
+            document.getElementById("whole_width").style.width = "86.5%";
+            document.getElementById("whole_width").style.marginLeft = "0";
+            document.getElementById("btnleftt").style.right = "8px";
+            document.getElementById("opena").style.display = "None";
+            document.getElementById("closea").style.display = "Inline";
+        }
+        function openNavdefault() {
+            document.getElementById("closea").style.display = "None";
+          
+        }
+      
+
+
+        function closeNav() {
+            document.getElementById("left_pane").style.width = "0";
+            document.getElementById("whole_width").style.marginLeft = "10px";
+            document.getElementById("whole_width").style.width = "98.5%";
+            document.getElementById("btnleftt").style.right = "-13px";
+            document.getElementById("closea").style.display = "None";
+            document.getElementById("opena").style.display = "Inline";
+
+        }
+     </script>
+    <script type="text/javascript">
+        var a = 0;
+        var b = 0;
+        var new_check = 0;
+        var check_status;
+        var ttt = document.getElementById('<%=hf_notification.ClientID %>').value;
+        $.noConflict();
+        function check_notification() {
+            // alert("HERE");
+
+            //            var ttt = $('#<%=hf_notification.ClientID %>').val;
+
+            // alert(ttt);
+
+            new_check = new_check + 1;
+
+
+
+
+
+            setTimeout(function () {
+                ShowCurrentTime(a);
+
+                // alert(check_status);
+                if (!check_status) {
+
+                    return false;
+                }
+
+
+
+
+                document.getElementById("notification_shape").style.visibility = "visible";
+                //alert(1);
+                var svgshape = document.getElementById('notification_shape'),
+                                        					                    s = Snap(svgshape.querySelector('svg')),
+                                        					                    path = s.select('path'),
+                                        					                    pathConfig = {
+                                        					                        from: path.attr('d'),
+                                        					                        to: svgshape.getAttribute('data-path-to')
+                                        					                    };
+                // alert(check_status);
+                // alert("HERE Now here");
+                bttn = document.getElementById('body_check');
+                // alert(check_status);
+
+                //start from here
+
+                //end from here
+
+
+
+
+
+                setTimeout(function () {
+
+                    //  alert(2);
+                    path.animate({ 'path': pathConfig.to }, 300, mina.easeinout);
+                    classie.remove(bttn, 'active');
+
+                    // create the notification
+                    var notification = new NotificationFx({
+                        wrapper: svgshape,
+                        message: '<p> <table style="width: 100%; box-shadow:0px 0px 4px #000000;" cellpadding="0" cellspacing="0"> <tr> <td width="30%" style="background:#4705ed;" valign="middle"> <img src="images/nofi_ani.gif" /> </td><td width="70%" valign="middle"><table style="width:100%; height:100px" style="font-size:medium"><tr><td valign="top" align="left" height="33px"><span style="font-size:Medium;text-decoration:underline; color:White;"><strong>Notification</strong></span></td></tr><tr><td valign="top"> <span style="font:12px/15px arial; color:#fff !important;"> ' + check_status + ' </spam> </td></tr></table></td> </tr> </table>    </p><div></div>',
+                        //message: check_status,
+                        layout: 'other',
+                        effect: 'cornerexpand',
+                        type: 'notice', // notice, warning or error
+                        onClose: function () {
+                            // bttn.disabled = false;
+                            setTimeout(function () {
+                                path.animate({ 'path': pathConfig.from }, 300, mina.easeinout);
+                            }, 200);
+                            setTimeout(function () {
+                                document.getElementById("notification_shape").style.visibility = "Hidden";
+                            }, 400);
+
+                            if (new_check >= ttt) {
+                                setTimeout("check_notification()", 900000);
+                            }
+                            else {
+                                setTimeout("check_notification()", 15000);
+                            }
+
+
+                        }
+                    });
+
+                    notification.show();
+
+                }, 1200);
+
+            }, 5000);
+            // a = a + 1;
+
+            if (!check_status) {
+                if (new_check >= ttt) {
+                    setTimeout("check_notification()", 900000);
+                }
+                else {
+                    setTimeout("check_notification()", 15000);
+                }
+                // this time when no record is here  after particular time its again fire
+            }
+
+        }
+
+    </script>
+    </form>
+
+    <script type="text/javascript">
+
+        function DropDown(el) {
+            this.dd = el;
+            this.initEvents();
+        }
+        DropDown.prototype = {
+            initEvents: function () {
+                var obj = this;
+
+                obj.dd.on('click', function (event) {
+                    $(this).toggleClass('active');
+                    event.stopPropagation();
+                });
+            }
+        }
+
+        $(function () {
+
+            var dd = new DropDown($('#dd'));
+
+            $(document).click(function () {
+                // all dropdowns
+                $('.wrapper-dropdown-5').removeClass('active');
+            });
+
+        });
+
+    </script>
+     
+</body>
+</html>
